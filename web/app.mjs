@@ -293,15 +293,20 @@ function renderLabState(algorithm, labState) {
   const message = lab.querySelector('[data-lab-message]');
   const stepLabel = lab.querySelector('[data-lab-step]');
   const progress = lab.querySelector('[data-lab-progress]');
+  stage.dataset.step = String(labState.index);
   const percent = labState.steps.length <= 1 ? 100 : (labState.index / (labState.steps.length - 1)) * 100;
   if (stepLabel) stepLabel.textContent = `Step ${labState.index} / ${labState.steps.length - 1}`;
   if (progress) progress.style.width = `${percent}%`;
   if (labState.type === 'sort' || labState.type === 'kadane') {
     const max = Math.max(...step.values.map((value) => Math.abs(value)), 1);
-    stage.innerHTML = step.values.map((value, index) => `<div class="bar-column"><span class="bar-value">${escapeHtml(value)}</span><i class="bar ${step.active?.includes(index) ? 'active' : ''} ${step.sorted?.includes(index) || labState.type === 'kadane' && index <= step.index ? 'sorted' : ''}" style="height:${Math.max(7, Math.abs(value) / max * 76)}%" title="index ${index}"></i></div>`).join('');
+    stage.innerHTML = step.values.map((value, index) => {
+      const active = step.active?.includes(index) || labState.type === 'kadane' && index === step.index;
+      const settled = step.sorted?.includes(index) || labState.type === 'kadane' && index <= step.index;
+      return `<div class="bar-column ${active ? 'active' : ''} ${settled ? 'settled' : ''}" style="--bar-height:${Math.max(8, Math.abs(value) / max * 132)}px;--bar-index:${index}" title="Index ${index}: ${value}"><span class="bar-value">${escapeHtml(value)}</span><i class="bar ${active ? 'active' : ''} ${settled ? 'sorted' : ''}"></i><span class="bar-index">${index}</span></div>`;
+    }).join('');
     if (message) message.textContent = labState.type === 'kadane' ? `At index ${step.index}: current = ${step.current}, best = ${step.best}.` : labState.index === labState.steps.length - 1 ? 'Sorted. The invariant holds across the full array.' : 'The highlighted pair is the current comparison.';
   } else if (labState.type === 'binary') {
-    stage.innerHTML = step.values.map((value, index) => `<span class="search-value ${index === step.result ? 'found' : ''} ${index === step.middle ? 'mid' : ''} ${index >= step.left && index <= step.right ? '' : 'skipped'}">${escapeHtml(value)}</span>`).join('');
+    stage.innerHTML = step.values.map((value, index) => `<span class="search-value ${index === step.result ? 'found' : ''} ${index === step.middle ? 'mid' : ''} ${index >= step.left && index <= step.right ? '' : 'skipped'}" style="--tile-index:${index}" aria-label="${value}${index === step.middle ? ', midpoint' : ''}${index === step.result ? ', target found' : ''}">${escapeHtml(value)}<small>${index}</small></span>`).join('');
     const note = lab.querySelector('[data-lab-note]'); if (note) note.textContent = step.note;
     if (message) message.textContent = step.result >= 0 ? `Found at zero-based index ${step.result}.` : step.middle >= 0 ? `Window: ${step.left}…${step.right}.` : 'Search exhausted without a match.';
   } else {
