@@ -11,12 +11,12 @@ int linear_search(int arr[], int n, int key) {
 int main() {
     int arr[100], n, key;
 
-    scanf("%d", &n);
+    if (scanf("%d", &n) != 1 || n < 0 || n > 100) return 1;
 
     for (int i = 0; i < n; i++)
-        scanf("%d", &arr[i]);
+        if (scanf("%d", &arr[i]) != 1) return 1;
 
-    scanf("%d", &key);
+    if (scanf("%d", &key) != 1) return 1;
 
     int res = linear_search(arr, n, key);
 

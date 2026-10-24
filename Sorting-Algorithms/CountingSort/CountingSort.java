@@ -2,27 +2,33 @@ import java.util.*;
 
 class Sorting {
     public static void countingSort(int[] arr) {
+        if (arr.length == 0) return;
         int max = arr[0];
+        int min = arr[0];
 
         // find max
         for (int i = 1; i < arr.length; i++) {
+            if (arr[i] < min) min = arr[i];
             if (arr[i] > max) {
                 max = arr[i];
             }
         }
 
-        int[] count = new int[max + 1];
+        long width = (long)max - min + 1;
+        if (width > 1_000_000)
+            throw new IllegalArgumentException("Counting sort supports a value range of at most 1,000,000");
+        int[] count = new int[(int)width];
 
         // count frequency
         for (int i = 0; i < arr.length; i++) {
-            count[arr[i]]++;
+            count[arr[i] - min]++;
         }
 
         // rebuild array
         int index = 0;
         for (int i = 0; i < count.length; i++) {
             while (count[i] > 0) {
-                arr[index++] = i;
+                arr[index++] = i + min;
                 count[i]--;
             }
         }

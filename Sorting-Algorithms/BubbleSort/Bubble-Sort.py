@@ -17,7 +17,7 @@ class Sorting:
 def safe_input(prompt, default):
     try:
         return input(prompt)
-    except:
+    except (EOFError, OSError):
         print(f"\n⚠ Input not supported. Using default value: {default}")
         return str(default)
 
@@ -68,7 +68,7 @@ def main():
         print("2. Test Case Input")
         print("3. Exit")
 
-        choice = int(safe_input("Enter your choice: ", 2))
+        choice = int(safe_input("Enter your choice: ", 3))
 
         if choice == 1:
             user_input_sort()

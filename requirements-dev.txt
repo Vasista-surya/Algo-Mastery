@@ -1,0 +1,2 @@
+# Optional test runner used during verification; algorithms need no packages.
+pytest==7.2.1

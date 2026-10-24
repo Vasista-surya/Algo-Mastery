@@ -13,6 +13,8 @@ def binary_search(arr, left, right, key):
 
 def exponential_search(arr, key):
     n = len(arr)
+    if n == 0:
+        return -1
 
     if arr[0] == key:
         return 0
@@ -72,4 +74,5 @@ def main():
             break
 
 
-main()
+if __name__ == "__main__":
+    main()

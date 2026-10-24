@@ -18,13 +18,16 @@ class Searching {
 
     static int exponentialSearch(int[] arr, int key) {
         int n = arr.length;
+        if (n == 0) return -1;
 
         if (arr[0] == key)
             return 0;
 
         int i = 1;
-        while (i < n && arr[i] <= key)
+        while (i < n && arr[i] <= key) {
+            if (i > n / 2) return binarySearch(arr, i / 2, n - 1, key);
             i *= 2;
+        }
 
         return binarySearch(arr, i / 2, Math.min(i, n - 1), key);
     }

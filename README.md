@@ -1,195 +1,237 @@
-# Data Structures & Algorithms
+# Algo Mastery — Data Structures & Algorithms
 
-A comprehensive and well-organized repository of **Data Structures & Algorithms (DSA)** and **Design & Analysis of Algorithms (DAA)** implemented in:
+A hands-on collection of **DSA** and **Design & Analysis of Algorithms (DAA)**
+for learning, problem solving, and interview preparation.
 
-- Python  
-- Java  
-- C  
+**56 algorithm/topic folders · 168 implementations · Python, Java, and C**
 
-This repository is built to strengthen **problem-solving skills**, improve **algorithmic thinking**, and prepare for **technical interviews**.
+Every algorithm has its own folder with three independently runnable source
+files. The original `Sorting-Algorithms/` and `Searching Algorithms/` names,
+including their existing filenames, are preserved. The remaining categories
+follow the same **category → algorithm → language files** structure.
 
----
+## Repository structure
 
-## 📁 Repository Structure
-
-```
-DSA-DAA-Algorithms/
-│
-├── Sorting/
-├── Searching/
-├── Arrays/
-├── Strings/
-├── LinkedList/
-├── Stack/
-├── Queue/
-├── Trees/
-├── Heaps/
-├── Graphs/
-│
-├── Greedy/
-├── DynamicProgramming/
-├── Backtracking/
-├── BranchAndBound/
-├── DivideAndConquer/
-│
+```text
+Algo-Mastery/
+├── Sorting-Algorithms/       # 9 sorting algorithms
+├── Searching Algorithms/    # 5 searching algorithms (space in folder name)
+├── Arrays/                  # Kadane, prefix sums, sliding window, two pointers
+├── Strings/                 # Naive matching, KMP, Rabin–Karp, Z
+├── LinkedList/              # Reverse, detect cycles, merge sorted lists
+├── Stack/                   # Infix/postfix, expression evaluation, brackets
+├── Queue/                   # Circular queue
+├── Trees/                   # Traversals, level order, height/diameter, BST
+├── Heaps/                   # Binary min-heap operations
+├── Graphs/                  # Traversals, ordering, shortest paths, forests
+├── Greedy/                  # Activity selection, fractional knapsack, Huffman
+├── DynamicProgramming/      # Six dynamic programming problems
+├── Backtracking/            # N-Queens, Sudoku, permutations/combinations
+├── BranchAndBound/          # Exact traveling salesman search
+├── DivideAndConquer/        # Convex hull; technique notes in category README
+├── tests/                   # Python unit, regression, and structure tests
+├── tools/check_examples.py  # Compile and exercise all three languages
+├── requirements-dev.txt     # Optional pytest runner
 └── README.md
 ```
 
----
+For example:
 
-## 🧠 Algorithms Covered
+```text
+Arrays/
+├── README.md
+├── Kadane/
+│   ├── Kadane.py
+│   ├── Kadane.java
+│   └── Kadane.c
+├── PrefixSum/
+├── SlidingWindow/
+└── TwoPointers/
+```
 
-### 🔢 Sorting Algorithms
-- Bubble Sort  
-- Selection Sort  
-- Insertion Sort  
-- Merge Sort  
-- Quick Sort  
-- Heap Sort  
-- Counting Sort  
-- Radix Sort  
+## Algorithm catalog
 
----
+All entries below have **Python, Java, and C** implementations. Category READMEs
+describe signatures, return values, complexity, input limits, and edge cases.
 
-### 🔍 Searching Algorithms
-- Linear Search  
-- Binary Search  
-- Jump Search  
-- Interpolation Search  
+| Category | Implementations |
+| --- | --- |
+| [Sorting](Sorting-Algorithms/README.md) | Bubble, Selection, Insertion, Merge, Quick, Heap, Counting, Radix, Bucket |
+| [Searching](Searching%20Algorithms/README.md) | Linear, Binary, Jump, Interpolation, Exponential |
+| [Arrays](Arrays/README.md) | Kadane (maximum subarray), Prefix Sum, fixed-width Sliding Window, sorted Two Pointers |
+| [Strings](Strings/README.md) | Naive Pattern Matching, KMP, Rabin–Karp, Z Algorithm |
+| [Linked lists](LinkedList/README.md) | Reverse Linked List, Floyd Cycle Detection, Merge Sorted Lists |
+| [Stacks](Stack/README.md) | Infix to Postfix, Postfix Expression Evaluation, Balanced Parentheses |
+| [Queues](Queue/README.md) | Circular Queue: enqueue, dequeue, peek, capacity checks |
+| [Trees](Trees/README.md) | Preorder/Inorder/Postorder, Level Order, Height and Diameter, BST insert/search/delete |
+| [Heaps](Heaps/README.md) | Min-Heap: push, pop, peek, capacity checks |
+| [Graphs](Graphs/README.md) | BFS, DFS, Topological Sort, Dijkstra, Kruskal, Prim, Bellman–Ford, Floyd–Warshall |
+| [Greedy](Greedy/README.md) | Activity Selection, Fractional Knapsack, Huffman coding/encoding/decoding |
+| [Dynamic programming](DynamicProgramming/README.md) | Fibonacci, 0/1 Knapsack, LCS, LIS, Coin Change, Matrix Chain Multiplication |
+| [Backtracking](Backtracking/README.md) | N-Queens, Sudoku Solver, Permutations and Combinations |
+| [Branch and bound](BranchAndBound/README.md) | Traveling Salesman Problem with lower-bound pruning |
+| [Geometry / technique notes](DivideAndConquer/README.md) | Convex Hull using Andrew's monotone chain |
 
----
+**Classification note:** Merge Sort and Quick Sort are the divide-and-conquer
+examples and remain in the original sorting folders. Convex Hull is stored in
+`DivideAndConquer/` but uses monotone chain, **not** a recursive divide-and-conquer
+hull. LIS uses the binary-search tails technique rather than quadratic DP.
 
-### 📊 Array Techniques
-- Kadane’s Algorithm (Maximum Subarray)  
-- Prefix Sum  
-- Sliding Window Technique  
-- Two Pointer Technique  
+## Quick start
 
----
+Run commands from the repository root. No framework, service, account, or
+runtime dependency is needed. The checked toolchain is **Python 3.11**, a
+**Java 17 JDK** (`java` and `javac`), and **GCC 12** with C99 support.
 
-### 🔤 String Algorithms
-- Naive Pattern Matching  
-- KMP (Knuth-Morris-Pratt)  
-- Rabin-Karp  
-- Z Algorithm  
+### Python
 
----
+```sh
+python Arrays/Kadane/Kadane.py
+python Graphs/Dijkstra/Dijkstra.py
+python "Sorting-Algorithms/BubbleSort/Bubble-Sort.py"
+```
 
-### 🔗 Linked List
-- Reversal of Linked List  
-- Cycle Detection (Floyd’s Algorithm)  
-- Merge Two Lists  
+Use `python3` instead if that is your system's Python command. The original
+sorting/searching Python programs offer menus: **1** custom input, **2** example
+cases, **3** exit. New topic programs run a small deterministic demo with
+self-checks and exit. Their functions can be imported without triggering input:
 
----
+```python
+from Arrays.Kadane.Kadane import max_subarray
+from Strings.KMP.KMP import find_matches
+from DynamicProgramming.Knapsack01.Knapsack01 import knapsack_01
 
-### 📚 Stack & Queue
-- Infix to Postfix Conversion  
-- Expression Evaluation  
-- Balanced Parentheses  
+assert max_subarray([-2, 1, -3, 4, -1, 2, 1, -5, 4]) == 6
+assert find_matches("ababa", "aba") == [0, 2]
+assert knapsack_01([10, 20, 30], [60, 100, 120], 50) == 220
+```
 
----
+### Java
 
-### 🌳 Tree Algorithms
-- Inorder, Preorder, Postorder Traversals  
-- Level Order Traversal  
-- Height and Diameter of Tree  
-- Binary Search Tree Operations  
+```sh
+javac -encoding UTF-8 Arrays/Kadane/Kadane.java
+java -ea -cp Arrays/Kadane Kadane
 
----
+javac -encoding UTF-8 "Searching Algorithms/Binary Search/BinarySearch.java"
+java -ea -cp "Searching Algorithms/Binary Search" BinarySearch
+```
 
-### 🌐 Graph Algorithms
-- Breadth First Search (BFS)  
-- Depth First Search (DFS)  
-- Topological Sort  
-- Dijkstra’s Algorithm  
-- Kruskal’s Algorithm  
-- Prim’s Algorithm  
+Compile **one algorithm at a time**. Original Java examples reuse helper class
+names such as `Sorting` and `Searching`, so compiling all source files into one
+directory would cause collisions. The automated checker isolates every build.
+`-ea` enables Java's self-check assertions.
 
----
+### C
 
-### 🧮 Dynamic Programming
-- Fibonacci (DP approach)  
-- 0/1 Knapsack  
-- Longest Common Subsequence (LCS)  
-- Longest Increasing Subsequence (LIS)  
-- Coin Change Problem  
-- Matrix Chain Multiplication  
+```sh
+cc -std=c99 -Wall -Wextra -pedantic Arrays/Kadane/Kadane.c -o kadane-demo.out
+./kadane-demo.out
+```
 
----
+Use `gcc` if your compiler is not named `cc`. On Windows, use an executable name
+such as `kadane-demo.exe` and run `.\kadane-demo.exe`. Some original programs
+(notably Jump Search) use the math library; add `-lm` at the end of their compile
+command. Quote paths containing spaces.
 
-### ⚡ Greedy Algorithms
-- Activity Selection Problem  
-- Fractional Knapsack  
-- Huffman Coding  
+Original C search programs read **n, n integer values, then the search key**.
+Most C sorts use a menu; Bucket Sort and Radix Sort read **n, then n values**
+directly. See the sorting/searching READMEs for the exact language differences.
 
----
+## Tests and verification
 
-### 🔁 Backtracking
-- N-Queens Problem  
-- Sudoku Solver  
-- Permutations & Combinations  
+Verified on Linux with the toolchain above: **182 Python tests passed**, and
+**168 standalone example checks passed** (56 per language), including C
+undefined-behavior instrumentation. Java/C checks compile each example and
+exercise its demo or original sorting/searching input flow.
 
----
+The Python tests use the standard library and can run without installing anything:
 
-### 🎯 Advanced Algorithms
-- Bellman-Ford Algorithm  
-- Floyd-Warshall Algorithm  
-- Traveling Salesman Problem (TSP)  
-- Convex Hull  
+```sh
+python -m unittest discover -s tests -q
+```
 
----
+Alternatively, run the same suite with pytest:
 
-## 🛠️ Languages Used
+```sh
+python -m pip install -r requirements-dev.txt
+python -m pytest -q
+```
 
-| Language | Purpose |
-|--------|--------|
-| Python | Simple and readable implementations |
-| Java | Object-oriented structured solutions |
-| C | Low-level optimized implementations |
+Compile and run every example, including regression inputs for the original
+sorting/searching programs:
 
----
+```sh
+python tools/check_examples.py
 
-## ⏱️ Time Complexity Reference
+# Individual language checks:
+python tools/check_examples.py --language python
+python tools/check_examples.py --language java
+python tools/check_examples.py --language c --sanitize
+```
 
-| Algorithm Type | Average Complexity |
-|---------------|------------------|
-| Sorting (efficient) | O(n log n) |
-| Searching (binary) | O(log n) |
-| Graph Traversal | O(V + E) |
-| Dynamic Programming | O(n²) or optimized |
+The checker enables Java assertions, compiles C with
+`-std=c99 -Wall -Wextra -Werror -pedantic`, and builds in temporary directories
+that are removed afterward. `--sanitize` adds GCC/Clang undefined-behavior
+instrumentation. Missing compilers, failed checks, and timeouts produce a nonzero
+exit status; they are not silently skipped. Each child command has a 30-second
+timeout. The whole check's duration depends on the machine.
 
+Coverage includes:
 
+- Every Python algorithm's normal, empty, duplicate, and relevant invalid inputs.
+- Seeded comparisons with simple reference implementations or brute-force results.
+- Graph cycles, unreachable vertices, negative edges/cycles, and disconnected forests.
+- Queue/heap limits, BST deletion, overlapping string matches, and linked-list cycles.
+- Sudoku givens, no-solution cases, TSP optimality, and degenerate convex hulls.
+- Standalone demos/self-checks in C and Java, plus sorting/searching CLI regressions.
+- Language-file completeness, import safety, and README links.
 
+These are educational implementations, not an exhaustive correctness proof or
+a production-ready general-purpose library. Read each implementation's contract
+before using inputs larger than the examples.
 
+## Important conventions
 
----
+- **Indices are zero-based.** Sorted search APIs require ascending input; their
+  demos sort first, so returned positions refer to the sorted array.
+- **Counting Sort** supports signed integers with a value range of at most
+  1,000,000. **Radix Sort** requires nonnegative integers. **Bucket Sort** supports
+  signed integers. The original C sorting/searching demos accept at most 100 values.
+- String matching returns **all overlapping matches**. An empty pattern matches
+  every boundary. Python counts code points, Java UTF-16 units, and C bytes;
+  use ASCII examples for identical offsets across languages.
+- Tree height and diameter count **edges**. The unbalanced BST ignores duplicates.
+- Kruskal and Prim return a **minimum spanning forest** for disconnected graphs.
+  Dijkstra rejects negative weights; Bellman–Ford/Floyd–Warshall report the
+  negative cycles relevant to their respective contracts.
+- Coin Change minimizes the number of coins with unlimited reuse. LCS and LIS
+  return lengths, not reconstructed subsequences. 0/1 Knapsack uses each item
+  at most once, including zero-weight items.
+- C/Java numeric and capacity limits are explicit in category READMEs. C examples
+  are separate translation units, not one combined executable. Error/status
+  conventions differ between independent examples; check their signatures.
+- Keep Python `-O` and C `NDEBUG` disabled when running demo assertions.
 
+## Learning path
 
+1. Start with sorting, searching, arrays, and strings.
+2. Practice linked lists, stacks, queues, trees, and heaps.
+3. Study graph traversal before shortest paths and spanning trees.
+4. Compare greedy choices with dynamic programming and exhaustive backtracking.
+5. Finish with branch-and-bound pruning and geometric degeneracies.
 
-## 🎯 Goals of This Repository
+Before running each example, predict the result, trace the state changes, and
+consider its worst-case time and space. Complexity varies by implementation:
+for example, these Dijkstra/Prim examples use linear minimum selection rather
+than a priority queue. Category READMEs document the actual bounds.
 
-- Master core DSA concepts  
-- Improve coding efficiency  
- 
----
+## Contributing
 
-## 🤝 Contribution
+1. Keep the existing category and algorithm folder names.
+2. Add matching Python, Java, and C files for a new algorithm; retain the original
+   `Bubble-Sort.py` filename exception.
+3. Separate reusable logic from demos; document assumptions, errors, and complexity.
+4. Add meaningful tests, including edge cases, and update the catalog/category README.
+5. Run the Python tests and all-language checker before submitting a pull request.
 
-Contributions are welcome!
-
-- Fork the repository  
-- Create a new branch  
-- Add your implementation  
-- Submit a Pull Request  
-
----
-
-## ⭐ Support
-
-If you find this repository useful:
-
-- Star ⭐ the repository  
-- Fork 🍴 and contribute  
-  
-
----
+If this collection helps you, star the repository or contribute a well-tested example.

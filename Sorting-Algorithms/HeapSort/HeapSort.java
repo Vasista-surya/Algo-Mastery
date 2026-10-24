@@ -128,6 +128,4 @@ public class HeapSort {
 
         sc.close();
     }
-} {
-    
 }

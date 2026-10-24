@@ -3,6 +3,8 @@ import java.util.*;
 class Sorting {
     public static void bucketSort(int[] arr) {
         int n = arr.length;
+        if (n == 0) return;
+        int min = Arrays.stream(arr).min().getAsInt();
         int max = Arrays.stream(arr).max().getAsInt();
 
         ArrayList<ArrayList<Integer>> buckets = new ArrayList<>();
@@ -12,7 +14,7 @@ class Sorting {
 
         // distribute elements
         for (int num : arr) {
-            int index = num * n / (max + 1);
+            int index = (int)(((long)num - min) * n / ((long)max - min + 1));
             buckets.get(index).add(num);
         }
 

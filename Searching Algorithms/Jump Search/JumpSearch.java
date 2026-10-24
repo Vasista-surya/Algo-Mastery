@@ -3,6 +3,7 @@ import java.util.*;
 class Searching {
     static int jumpSearch(int[] arr, int key) {
         int n = arr.length;
+        if (n == 0) return -1;
         int step = (int)Math.sqrt(n);
         int prev = 0;
 

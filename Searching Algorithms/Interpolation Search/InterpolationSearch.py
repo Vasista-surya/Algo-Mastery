@@ -4,7 +4,7 @@ def interpolation_search(arr, key):
 
     while low <= high and key >= arr[low] and key <= arr[high]:
 
-        if low == high:
+        if arr[low] == arr[high]:
             if arr[low] == key:
                 return low
             return -1
@@ -69,4 +69,5 @@ def main():
             break
 
 
-main()
+if __name__ == "__main__":
+    main()

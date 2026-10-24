@@ -6,13 +6,14 @@ class Searching {
 
         while (low <= high && key >= arr[low] && key <= arr[high]) {
 
-            if (low == high) {
+            if (arr[low] == arr[high]) {
                 if (arr[low] == key)
                     return low;
                 return -1;
             }
 
-            int pos = low + ((key - arr[low]) * (high - low)) / (arr[high] - arr[low]);
+            int pos = low + (int)(((long)key - arr[low]) * (high - low)
+                    / ((long)arr[high] - arr[low]));
 
             if (arr[pos] == key)
                 return pos;

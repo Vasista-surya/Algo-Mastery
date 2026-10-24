@@ -2,14 +2,14 @@ def bucket_sort(arr):
     if len(arr) == 0:
         return arr
 
-    max_val = max(arr)
+    min_val, max_val = min(arr), max(arr)
     bucket_count = len(arr)
 
     buckets = [[] for _ in range(bucket_count)]
 
     # distribute elements into buckets
     for num in arr:
-        index = int(num * bucket_count / (max_val + 1))
+        index = (num - min_val) * bucket_count // (max_val - min_val + 1)
         buckets[index].append(num)
 
     # sort individual buckets
@@ -67,4 +67,5 @@ def main():
         elif choice == 3:
             break
 
-main()
+if __name__ == "__main__":
+    main()

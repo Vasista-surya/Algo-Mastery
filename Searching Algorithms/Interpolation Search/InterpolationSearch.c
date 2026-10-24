@@ -1,17 +1,19 @@
 #include <stdio.h>
+#include <stdint.h>
 
 int interpolation_search(int arr[], int n, int key) {
     int low = 0, high = n - 1;
 
     while (low <= high && key >= arr[low] && key <= arr[high]) {
 
-        if (low == high) {
+        if (arr[low] == arr[high]) {
             if (arr[low] == key)
                 return low;
             return -1;
         }
 
-        int pos = low + ((key - arr[low]) * (high - low)) / (arr[high] - arr[low]);
+        int pos = low + (int)(((int64_t)key - arr[low]) * (high - low)
+                             / ((int64_t)arr[high] - arr[low]));
 
         if (arr[pos] == key)
             return pos;
@@ -37,14 +39,14 @@ void sort(int arr[], int n) {
 int main() {
     int arr[100], n, key;
 
-    scanf("%d", &n);
+    if (scanf("%d", &n) != 1 || n < 0 || n > 100) return 1;
 
     for (int i = 0; i < n; i++)
-        scanf("%d", &arr[i]);
+        if (scanf("%d", &arr[i]) != 1) return 1;
 
     sort(arr, n);
 
-    scanf("%d", &key);
+    if (scanf("%d", &key) != 1) return 1;
 
     int res = interpolation_search(arr, n, key);
 

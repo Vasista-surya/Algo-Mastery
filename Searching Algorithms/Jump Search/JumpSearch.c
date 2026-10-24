@@ -2,6 +2,7 @@
 #include <math.h>
 
 int jump_search(int arr[], int n, int key) {
+    if (n <= 0) return -1;
     int step = sqrt(n);
     int prev = 0;
 
@@ -34,14 +35,14 @@ void sort(int arr[], int n) {
 int main() {
     int arr[100], n, key;
 
-    scanf("%d", &n);
+    if (scanf("%d", &n) != 1 || n < 0 || n > 100) return 1;
 
     for (int i = 0; i < n; i++)
-        scanf("%d", &arr[i]);
+        if (scanf("%d", &arr[i]) != 1) return 1;
 
     sort(arr, n);
 
-    scanf("%d", &key);
+    if (scanf("%d", &key) != 1) return 1;
 
     int res = jump_search(arr, n, key);
 

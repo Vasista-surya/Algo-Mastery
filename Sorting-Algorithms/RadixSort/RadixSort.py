@@ -22,6 +22,11 @@ def counting_sort(arr, exp):
 
 
 def radix_sort(arr):
+    """Sort nonnegative integers in place in O(d * (n + 10)) time."""
+    if not arr:
+        return
+    if any(num < 0 for num in arr):
+        raise ValueError("Radix sort requires nonnegative integers")
     max_val = max(arr)
     exp = 1
 
@@ -73,4 +78,5 @@ def main():
         elif choice == 3:
             break
 
-main()
+if __name__ == "__main__":
+    main()

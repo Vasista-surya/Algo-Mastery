@@ -37,18 +37,18 @@ int main() {
         printf("3. Exit\n");
 
         printf("Enter choice: ");
-        scanf("%d", &choice);
+        if (scanf("%d", &choice) != 1) break;
 
         if (choice == 1) {
             // User Input
             int n;
             printf("Enter number of elements: ");
-            scanf("%d", &n);
+            if (scanf("%d", &n) != 1 || n < 0 || n > 100) return 1;
 
-            int arr[n];
+            int arr[100];
             for (int i = 0; i < n; i++) {
                 printf("Enter element %d: ", i + 1);
-                scanf("%d", &arr[i]);
+                if (scanf("%d", &arr[i]) != 1) return 1;
             }
 
             printf("Original Array: ");
@@ -75,7 +75,7 @@ int main() {
 
             printf("\nSelect Test Case (1-6): ");
             int t;
-            scanf("%d", &t);
+            if (scanf("%d", &t) != 1) return 1;
 
             if (t >= 1 && t <= 6) {
                 int arr[5];

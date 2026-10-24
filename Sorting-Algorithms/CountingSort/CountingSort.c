@@ -1,35 +1,45 @@
 #include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
 
 void counting_sort(int arr[], int n) {
+    if (n <= 0) return;
     int max = arr[0];
+    int min = arr[0];
 
     // find max
     for (int i = 1; i < n; i++) {
+        if (arr[i] < min) min = arr[i];
         if (arr[i] > max) {
             max = arr[i];
         }
     }
 
-    int count[max + 1];
-
-    // initialize count array
-    for (int i = 0; i <= max; i++) {
-        count[i] = 0;
+    int64_t width = (int64_t)max - min + 1;
+    if (width > 1000000) {
+        fprintf(stderr, "Counting sort supports a value range of at most 1,000,000.\n");
+        exit(EXIT_FAILURE);
+    }
+    int *count = calloc((size_t)width, sizeof(*count));
+    if (count == NULL) {
+        fprintf(stderr, "Cannot allocate counts.\n");
+        exit(EXIT_FAILURE);
     }
 
     // count frequency
     for (int i = 0; i < n; i++) {
-        count[arr[i]]++;
+        count[arr[i] - min]++;
     }
 
     // rebuild sorted array
     int index = 0;
-    for (int i = 0; i <= max; i++) {
+    for (int i = 0; i < (int)width; i++) {
         while (count[i] > 0) {
-            arr[index++] = i;
+            arr[index++] = i + min;
             count[i]--;
         }
     }
+    free(count);
 }
 
 void print_array(int arr[], int n) {
@@ -49,18 +59,18 @@ int main() {
         printf("3. Exit\n");
 
         printf("Enter choice: ");
-        scanf("%d", &choice);
+        if (scanf("%d", &choice) != 1) break;
 
         if (choice == 1) {
             // User Input
             int n;
             printf("Enter number of elements: ");
-            scanf("%d", &n);
+            if (scanf("%d", &n) != 1 || n < 0 || n > 100) return 1;
 
             int arr[100];
             for (int i = 0; i < n; i++) {
                 printf("Enter element %d: ", i + 1);
-                scanf("%d", &arr[i]);
+                if (scanf("%d", &arr[i]) != 1) return 1;
             }
 
             printf("Original Array: ");
@@ -87,7 +97,7 @@ int main() {
 
             printf("\nSelect Test Case (1-6): ");
             int t;
-            scanf("%d", &t);
+            if (scanf("%d", &t) != 1) return 1;
 
             if (t >= 1 && t <= 6) {
                 int arr[100];

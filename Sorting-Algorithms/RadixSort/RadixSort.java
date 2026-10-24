@@ -23,11 +23,17 @@ class Sorting {
     }
 
     static void radixSort(int[] arr) {
+        if (arr.length == 0) return;
+        for (int value : arr)
+            if (value < 0) throw new IllegalArgumentException("Radix sort requires nonnegative integers");
         int max = arr[0];
         for (int i : arr) if (i > max) max = i;
 
-        for (int exp = 1; max / exp > 0; exp *= 10)
+        for (int exp = 1; max / exp > 0;) {
             countingSort(arr, exp);
+            if (exp > max / 10) break; // Do not overflow the final digit's exponent.
+            exp *= 10;
+        }
     }
 }
 

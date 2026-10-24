@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 void insertion_sort(int arr[], int n) {
     for (int i = 1; i < n; i++) {
@@ -14,10 +15,19 @@ void insertion_sort(int arr[], int n) {
 }
 
 void bucket_sort(int arr[], int n) {
+    if (n <= 0) return;
+    /* This teaching implementation uses O(n^2) bucket storage. */
+    if (n > 100) {
+        fprintf(stderr, "Bucket sort supports at most 100 elements.\n");
+        exit(EXIT_FAILURE);
+    }
     int max = arr[0];
+    int min = arr[0];
 
-    for (int i = 1; i < n; i++)
+    for (int i = 1; i < n; i++) {
         if (arr[i] > max) max = arr[i];
+        if (arr[i] < min) min = arr[i];
+    }
 
     int bucket[n][n], count[n];
 
@@ -26,7 +36,7 @@ void bucket_sort(int arr[], int n) {
 
     // distribute elements
     for (int i = 0; i < n; i++) {
-        int index = arr[i] * n / (max + 1);
+        int index = (int)(((int64_t)arr[i] - min) * n / ((int64_t)max - min + 1));
         bucket[index][count[index]++] = arr[i];
     }
 
@@ -52,10 +62,10 @@ int main() {
     int arr[100], n;
 
     printf("Enter n: ");
-    scanf("%d", &n);
+    if (scanf("%d", &n) != 1 || n < 0 || n > 100) return 1;
 
     for (int i = 0; i < n; i++)
-        scanf("%d", &arr[i]);
+        if (scanf("%d", &arr[i]) != 1) return 1;
 
     printf("Original: ");
     print(arr, n);

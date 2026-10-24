@@ -1,19 +1,23 @@
 def counting_sort(arr):
+    """Sort integers in place; O(n + k) time/space, k <= 1,000,000."""
     if not arr:
         return arr
 
-    max_val = max(arr)
-    count = [0] * (max_val + 1)
+    min_val, max_val = min(arr), max(arr)
+    width = max_val - min_val + 1
+    if width > 1_000_000:
+        raise ValueError("Counting sort supports a value range of at most 1,000,000")
+    count = [0] * width
 
     # count frequency
     for num in arr:
-        count[num] += 1
+        count[num - min_val] += 1
 
     # rebuild sorted array
     index = 0
     for i in range(len(count)):
         while count[i] > 0:
-            arr[index] = i
+            arr[index] = i + min_val
             index += 1
             count[i] -= 1
 
