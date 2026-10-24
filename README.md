@@ -235,3 +235,47 @@ than a priority queue. Category READMEs document the actual bounds.
 5. Run the Python tests and all-language checker before submitting a pull request.
 
 If this collection helps you, star the repository or contribute a well-tested example.
+
+## Algo-Mastery web platform and Android companion
+
+The repository now also contains a focused product layer around the verified
+algorithm collection:
+
+```text
+web/       static responsive learning cockpit, catalog, labs, branding, tests
+android/   native Java Android catalog, bookmarks, detail screens, bubble-sort lab
+```
+
+The web app intentionally uses plain HTML, CSS, and browser ES modules so it can
+deploy to any static host without a runtime service or API secret. It exposes all
+56 real algorithm modules, links to their exact source files, stores bookmarks in
+browser-local storage, and provides tested interactive traces for Bubble Sort,
+Binary Search, Kadane's Algorithm, and BFS. The Android app is native Java with
+the same core catalog and a local bubble-sort trace; it is not a landing-page
+WebView.
+
+### Web build and checks
+
+```sh
+cd web
+npm test
+npm run build
+```
+
+The production-ready static output is written to `web/dist/`. Deploy that folder
+to GitHub Pages, Netlify, Vercel, or another static host with an SPA fallback to
+`index.html` if the host needs one. The download page currently shows a clear
+development state because an APK is not published to a release asset yet.
+
+### Android build and release
+
+```sh
+cd android
+./gradlew assembleDebug
+```
+
+The verified local artifact path is
+`android/app/build/outputs/apk/debug/app-debug.apk`. See `android/README.md` for
+package validation, signing, and GitHub Release steps. Once a real APK is
+published, update the `product.release` metadata in `web/catalog.mjs` with the
+release asset URL, version, size, and checksum, then run `npm run build` again.

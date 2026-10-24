@@ -1,0 +1,21 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'com.algomastery.app'
+    compileSdk 28
+
+    defaultConfig {
+        applicationId 'com.algomastery.app'
+        minSdk 23
+        targetSdk 28
+        versionCode 1
+        versionName '0.1.0'
+    }
+
+    buildTypes {
+        debug {}
+        release { minifyEnabled false; proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro' }
+    }
+
+    compileOptions { sourceCompatibility JavaVersion.VERSION_1_8; targetCompatibility JavaVersion.VERSION_1_8 }
+}
