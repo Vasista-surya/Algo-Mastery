@@ -115,7 +115,7 @@ function categoryMark(id) {
 function renderSidebar() {
   const list = document.querySelector('#collection-list');
   if (!list) return;
-  list.innerHTML = categories.filter((category) => category.id !== 'all').slice(0, 9).map((category) => `
+  list.innerHTML = categories.filter((category) => category.id !== 'all').map((category) => `
     <a class="collection-item" href="#/explore?category=${encodeURIComponent(category.id)}">
       <span class="collection-icon">${escapeHtml(category.icon)}</span><span>${escapeHtml(category.label)}</span><span class="collection-count">${categoryCount(category.id)}</span>
     </a>`).join('');

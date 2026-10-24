@@ -49,11 +49,11 @@ button { border: 0; cursor: pointer; }
 .active .nav-icon { color: var(--violet-light); }
 .nav-count, .nav-status { margin-left: auto; color: var(--subtle); font-size: 10px; font-weight: 800; }
 .nav-status { color: var(--cyan); letter-spacing: .08em; }
-.collection-list { display: grid; gap: 2px; margin-top: 12px; }
+.collection-list { display: grid; min-height: 0; flex: 1 1 auto; align-content: start; gap: 2px; overflow-x: hidden; overflow-y: auto; margin-top: 12px; padding: 0 4px 8px 0; overscroll-behavior: contain; scrollbar-color: var(--line-strong) transparent; scrollbar-width: thin; }
 .collection-item { min-height: 35px; font-size: 11px; }
 .collection-item .collection-icon { display: grid; width: 22px; height: 22px; place-items: center; border-radius: 7px; color: var(--violet-light); background: rgba(120, 107, 255, .12); font-size: 12px; }
 .collection-item .collection-count { margin-left: auto; color: var(--subtle); font-size: 10px; }
-.sidebar-bottom { margin-top: auto; }
+.sidebar-bottom { flex: 0 0 auto; margin-top: 12px; }
 .mini-card { display: flex; align-items: center; gap: 10px; margin: 0 4px 16px; padding: 12px; border: 1px solid rgba(120, 107, 255, .18); border-radius: 14px; background: linear-gradient(135deg, rgba(120, 107, 255, .12), rgba(57, 213, 242, .04)); }
 .mini-card-orb { display: grid; flex: 0 0 auto; width: 30px; height: 30px; place-items: center; border-radius: 10px; color: var(--cyan); background: rgba(57, 213, 242, .12); }
 .mini-card strong, .mini-card span { display: block; }
