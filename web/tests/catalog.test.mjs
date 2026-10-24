@@ -40,6 +40,12 @@ test('static entry points include accessible navigation and a manifest', async (
   assert.match(html, /manifest\.json/);
 });
 
+test('Vercel publishes the generated web output from the repository root', async () => {
+  const config = JSON.parse(await readFile(resolve(repoRoot, 'vercel.json'), 'utf8'));
+  assert.equal(config.buildCommand, 'npm --prefix web run build');
+  assert.equal(config.outputDirectory, 'web/dist');
+});
+
 test('interactive trace generators preserve the algorithm contracts', () => {
   const sorted = sortSteps([7, 3, 5, 1]).at(-1).values;
   assert.deepEqual(sorted, [1, 3, 5, 7]);

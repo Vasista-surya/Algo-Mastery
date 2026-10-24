@@ -264,8 +264,12 @@ npm run build
 
 The production-ready static output is written to `web/dist/`. Deploy that folder
 to GitHub Pages, Netlify, Vercel, or another static host with an SPA fallback to
-`index.html` if the host needs one. The download page currently shows a clear
-development state because an APK is not published to a release asset yet.
+`index.html` if the host needs one. For a Vercel project created from the
+repository root, the checked-in `vercel.json` runs the web build and publishes
+`web/dist/`; no manual root-directory guess is required. Alternatively, set the
+Vercel Root Directory to `web`, use `npm run build`, and set the output directory
+to `dist`. The download page currently shows a clear development state because
+an APK is not published to a release asset yet.
 
 ### Android build and release
 
