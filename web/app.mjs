@@ -49,6 +49,7 @@ function routeName(path = currentPath()) {
 }
 
 function routeLabel(path = currentPath()) {
+  if (!path[0]) return 'Overview';
   if (path[0] === 'algorithm') return algorithmsBySlug[path[1]]?.name || 'Algorithm';
   const labels = { home: 'Overview', explore: 'Explore algorithms', dashboard: 'My dashboard', download: 'Android app', about: 'About', docs: 'Documentation' };
   return labels[path[0]] || 'Not found';
@@ -89,6 +90,11 @@ function updateSavedDot() {
   savedDot?.classList.toggle('visible', state.bookmarks.length > 0);
 }
 
+function setSidebarOpen(open) {
+  sidebar.classList.toggle('open', open);
+  document.querySelector('#menu-toggle')?.setAttribute('aria-expanded', String(open));
+}
+
 function recordRecent(slug) {
   state.recent = [slug, ...state.recent.filter((item) => item !== slug)].slice(0, 6);
   saveStorage(storageKeys.recent, state.recent);
@@ -114,7 +120,12 @@ function renderSidebar() {
       <span class="collection-icon">${escapeHtml(category.icon)}</span><span>${escapeHtml(category.label)}</span><span class="collection-count">${categoryCount(category.id)}</span>
     </a>`).join('');
   document.querySelector('#algorithm-count').textContent = algorithms.length;
-  document.querySelectorAll('[data-nav]').forEach((link) => link.classList.toggle('active', link.dataset.nav === routeName()));
+  document.querySelectorAll('[data-nav]').forEach((link) => {
+    const active = link.dataset.nav === routeName();
+    link.classList.toggle('active', active);
+    if (active) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  });
 }
 
 function iconForAlgorithm(algorithm) {
@@ -146,7 +157,25 @@ function renderOverview() {
   root.innerHTML = `
     <section class="overview-hero">
       <div class="hero-copy"><span class="eyebrow">Algorithm learning cockpit</span><h1>Turn complex algorithms into <span>clear understanding.</span></h1><p class="lede">Explore a verified collection of data structures and algorithms, see the idea in motion, and build intuition you can carry into your next problem.</p><div class="button-row"><a class="button button-primary" href="#/explore">Explore algorithms <span>↗</span></a><a class="button button-secondary" href="#/download">Download Android app <span>↓</span></a></div><div class="hero-meta"><span><strong>${algorithms.length}</strong> learning modules</span><i class="hero-meta-divider"></i><span><strong>3</strong> languages per module</span><i class="hero-meta-divider"></i><span><strong>0</strong> fake demos</span></div></div>
-      <div class="hero-visual"><div class="hero-visual-header"><span>algorithm_trace / bubble_sort.py</span><span class="live-label">Live concept</span></div><div class="hero-visual-body"><div class="code-preview"><div class="code-preview-head"><i class="code-dot"></i><i class="code-dot"></i><i class="code-dot"></i><span>trace.py</span></div><pre><span class="token-purple">for</span> end <span class="token-purple">in</span> <span class="token-cyan">range</span>(n - 1, 0, -1):
+      <div class="hero-visual">
+        <div class="hero-visual-header"><span>algorithm_trace / bubble_sort.py</span><span class="live-label">Live concept</span></div>
+        <div class="hero-visual-body">
+          <div class="code-preview">
+            <div class="code-preview-head"><i class="code-dot"></i><i class="code-dot"></i><i class="code-dot"></i><span>trace.py</span></div>
+            <pre><span class="token-purple">for</span> end <span class="token-purple">in</span> <span class="token-cyan">range</span>(len(values) - 1, 0, -1):
+    <span class="token-purple">for</span> index <span class="token-purple">in</span> <span class="token-cyan">range</span>(end):
+        <span class="token-purple">if</span> values[index] &gt; values[index + 1]:
+            values[index], values[index + 1] = values[index + 1], values[index]</pre>
+          </div>
+          <div class="trace-preview">
+            <div class="trace-preview-heading"><span>Current pass</span><span>3 comparisons</span></div>
+            <div class="trace-bars" aria-label="Bubble sort example: 7, 3, 5, 1, 8, 2">
+              <i style="--bar-height:72%"></i><i class="active" style="--bar-height:38%"></i><i class="active" style="--bar-height:58%"></i><i style="--bar-height:22%"></i><i class="settled" style="--bar-height:88%"></i><i style="--bar-height:48%"></i>
+            </div>
+            <div class="trace-legend"><span><i></i>Comparing</span><span><i></i>Settled</span></div>
+          </div>
+        </div>
+      </div>
     </section>
     <section class="overview-grid"><div class="stats-row"><div class="stat-card card-flat"><div class="stat-top"><span>Verified catalog</span><span class="stat-icon">✦</span></div><strong>${algorithms.length}</strong><small>algorithms across ${categories.length - 1} tracks</small></div><div class="stat-card card-flat"><div class="stat-top"><span>Interactive labs</span><span class="stat-icon">◌</span></div><strong>${algorithms.filter((algorithm) => algorithm.interactive).length}</strong><small>tested step-by-step demos</small></div><div class="stat-card card-flat"><div class="stat-top"><span>Source languages</span><span class="stat-icon">⌘</span></div><strong>03</strong><small>Python · Java · C</small></div></div><div class="roadmap-card card-flat"><h3>A focused route through the repo</h3><p>A compact path for moving from intuition to harder constraints without losing the thread.</p><div class="roadmap-row"><span class="roadmap-number">01</span><div><strong>Foundations</strong><span>arrays, strings, sorting</span></div><div class="roadmap-progress"><i style="width:100%"></i></div></div><div class="roadmap-row"><span class="roadmap-number">02</span><div><strong>Structures</strong><span>lists, stacks, trees, heaps</span></div><div class="roadmap-progress"><i style="width:72%"></i></div></div><div class="roadmap-row"><span class="roadmap-number">03</span><div><strong>Strategy</strong><span>graphs, greedy, dynamic programming</span></div><div class="roadmap-progress"><i style="width:38%"></i></div></div></div></section>
     <section class="content-section"><div class="section-heading"><div><span class="eyebrow">Map the territory</span><h2>Choose a mental model.</h2><p>Browse the real categories already present in the repository.</p></div><a class="button button-ghost" href="#/explore">View all ${algorithms.length} modules →</a></div><div class="category-grid">${categoryCards}</div></section>
@@ -169,11 +198,8 @@ function filteredAlgorithms() {
 
 function renderExplore() {
   const result = filteredAlgorithms();
-  const categoryPills = categories.map((category) => `<button class="category-pill ${state.selectedCategory === category.id ? 'active' : ''}" data-category="${escapeHtml(category.id)}"><span>${escapeHtml(category.icon)}</span>${escapeHtml(category.label)}<span class="pill-count">${category.id === 'all' ? algorithms.length : categoryCount(category.id)}</span></button>`).join('');
+  const categoryPills = categories.map((category) => `<button class="category-pill ${state.selectedCategory === category.id ? 'active' : ''}" data-category="${escapeHtml(category.id)}" aria-pressed="${state.selectedCategory === category.id}"><span>${escapeHtml(category.icon)}</span>${escapeHtml(category.label)}<span class="pill-count">${category.id === 'all' ? algorithms.length : categoryCount(category.id)}</span></button>`).join('');
   root.innerHTML = `<section class="explore-header"><div><span class="eyebrow">Verified catalog</span><h1>Find your next <span style="color:var(--violet-light)">aha moment.</span></h1><p>Every card maps to a real folder in the repository. Filter the collection by mental model, then open a lesson for contracts, complexity, source links, and—where supported—a working trace.</p></div><div class="explore-summary"><div class="summary-arc"><span>${result.length}<small>shown</small></span></div><span class="muted" style="font-size:10px">of ${algorithms.length}<br />modules</span></div></section><section class="filters-panel"><label class="filter-search" for="catalog-search"><span>⌕</span><input id="catalog-search" type="search" value="${escapeHtml(state.query)}" placeholder="Search by algorithm, category, or idea" autocomplete="off" /></label><label class="select-wrap" for="catalog-sort"><span>↕</span><select id="catalog-sort"><option value="name" ${state.sort === 'name' ? 'selected' : ''}>Sort by name</option><option value="category" ${state.sort === 'category' ? 'selected' : ''}>Sort by category</option><option value="complexity" ${state.sort === 'complexity' ? 'selected' : ''}>Sort by complexity</option><option value="saved" ${state.sort === 'saved' ? 'selected' : ''}>Saved first</option></select></label></section><div class="category-pills">${categoryPills}</div><section class="algorithm-grid">${result.length ? result.map(algorithmCard).join('') : `<div class="empty-state card-flat" style="grid-column:1/-1"><strong>No algorithm matches that search.</strong><p>Try a shorter phrase or reset the category filter to see the full verified catalog.</p><button class="button button-secondary" data-clear-filters>Reset filters</button></div>`}</section>`;
-  const catalogSearch = document.querySelector('#catalog-search');
-  catalogSearch?.focus({ preventScroll: true });
-  if (state.query) catalogSearch?.setSelectionRange(state.query.length, state.query.length);
 }
 
 const snippets = {
@@ -356,7 +382,7 @@ function render() {
     default: renderNotFound();
   }
   window.scrollTo(0, 0);
-  sidebar.classList.remove('open');
+  setSidebarOpen(false);
   updateSavedDot();
 }
 
@@ -419,9 +445,16 @@ globalSearch?.addEventListener('input', (event) => {
 });
 
 globalSearch?.addEventListener('keydown', (event) => { if (event.key === 'Enter') { window.location.hash = '#/explore'; renderExplore(); } });
-document.addEventListener('keydown', (event) => { if (event.key === '/' && document.activeElement?.tagName !== 'INPUT') { event.preventDefault(); globalSearch?.focus(); } });
-document.querySelector('#menu-toggle')?.addEventListener('click', () => sidebar.classList.add('open'));
-document.querySelector('#sidebar-close')?.addEventListener('click', () => sidebar.classList.remove('open'));
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && sidebar.classList.contains('open')) setSidebarOpen(false);
+  if (event.key === '/' && !event.target.closest('input, textarea, select, [contenteditable="true"]')) {
+    event.preventDefault();
+    globalSearch?.focus();
+  }
+});
+document.querySelector('#menu-toggle')?.addEventListener('click', () => setSidebarOpen(true));
+document.querySelector('#sidebar-close')?.addEventListener('click', () => setSidebarOpen(false));
+document.querySelector('#sidebar-scrim')?.addEventListener('click', () => setSidebarOpen(false));
 window.addEventListener('hashchange', render);
 window.addEventListener('storage', () => { state.bookmarks = readStorage(storageKeys.bookmarks, []); state.recent = readStorage(storageKeys.recent, []); render(); });
 
